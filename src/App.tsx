@@ -1,60 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { Navigation } from './components/Navigation';
-import { HeroSection } from './components/HeroSection';
-import { ProblemSection } from './components/ProblemSection';
-import { ArchitectureSection } from './components/ArchitectureSection';
-import { DigitalTwinSection } from './components/DigitalTwinSection';
-import { AttackSimulationSection } from './components/AttackSimulationSection';
-import { AiDetectionSection } from './components/AiDetectionSection';
-import { DecisionSelfHealingSection } from './components/DecisionSelfHealingSection';
-import { ResultsSection } from './components/ResultsSection';
-import { FinalConclusionSection } from './components/FinalConclusionSection';
-import { AppleKeynoteModal } from './components/AppleKeynoteModal';
+import { GridScene3D } from './components/3d/GridScene3D';
+import { NavigationV2 } from './components/NavigationV2';
+import { HeroOverlay } from './components/overlays/HeroOverlay';
+import { ProblemOverlay } from './components/overlays/ProblemOverlay';
+import { AttacksOverlay } from './components/overlays/AttacksOverlay';
+import { DigitalTwinOverlay } from './components/overlays/DigitalTwinOverlay';
+import { AiDefenceOverlay } from './components/overlays/AiDefenceOverlay';
+import { SelfHealingOverlay } from './components/overlays/SelfHealingOverlay';
+import { ResultsOverlay } from './components/overlays/ResultsOverlay';
+import { FinalOverlay } from './components/overlays/FinalOverlay';
+import { Bus3D } from './data';
 
 export function App() {
-  const [activeSection, setActiveSection] = useState<string>('hero');
-  const [isKeynoteOpen, setIsKeynoteOpen] = useState<boolean>(false);
+  const [currentSection, setCurrentSection] = useState<string>('hero');
+  const [selectedBus, setSelectedBus] = useState<Bus3D | null>(null);
+  const [attackMode, setAttackMode] = useState<'none' | 'fdia' | 'breaker' | 'load'>('none');
+  const [isHealed, setIsHealed] = useState<boolean>(false);
+  const [selectedAiModel, setSelectedAiModel] = useState<string>('bilstm');
 
-  // Smooth scroll to section
-  const handleNavigate = (sectionId: string) => {
-    setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (sectionId === 'hero') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  // Scroll listener to update active section in navbar
+  // Scroll spy to update currentSection and trigger 3D camera transitions
   useEffect(() => {
     const handleScroll = () => {
-      const sectionIds = [
+      const sections = [
         'hero',
         'problem',
-        'architecture',
+        'attacks',
         'digital-twin',
-        'simulation',
         'ai-defence',
-        'decision',
+        'self-healing',
         'results',
-        'conclusion'
+        'final'
       ];
 
-      const scrollPosition = window.scrollY + 280;
+      const scrollPosition = window.scrollY + window.innerHeight * 0.45;
 
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const id = sectionIds[i];
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const id = sections[i];
         const el = document.getElementById(id);
         if (el) {
           if (scrollPosition >= el.offsetTop) {
-            setActiveSection(id);
+            setCurrentSection(id);
             return;
           }
         }
       }
       if (window.scrollY < 200) {
-        setActiveSection('hero');
+        setCurrentSection('hero');
       }
     };
 
@@ -62,57 +53,88 @@ export function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavigate = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="bg-[#fbfbfd] text-[#1d1d1f] min-h-screen flex flex-col justify-between selection:bg-[#0071e3] selection:text-white font-sans antialiased">
+    <div className="relative min-h-screen bg-[#f8fafc] text-slate-900 selection:bg-blue-600 selection:text-white font-sans">
       
-      {/* Apple Minimal Sticky Navigation */}
-      <Navigation
-        activeSection={activeSection}
-        onNavigate={handleNavigate}
-        onOpenKeynote={() => setIsKeynoteOpen(true)}
+      {/* 3D WebGL Canvas Layer (Fixed in Background) */}
+      <GridScene3D
+        currentSection={currentSection}
+        selectedBus={selectedBus}
+        onSelectBus={(bus) => {
+          setSelectedBus(bus);
+          // If in digital twin section, ensure it stays in view
+          if (currentSection !== 'digital-twin') {
+            handleNavigate('digital-twin');
+          }
+        }}
+        attackMode={attackMode}
+        isHealed={isHealed}
+        selectedAiModel={selectedAiModel}
       />
 
-      {/* Main Interactive Storytelling Flow */}
-      <main className="flex-1">
+      {/* Futuristic Sci-Fi Navigation HUD */}
+      <NavigationV2
+        currentSection={currentSection}
+        onNavigate={handleNavigate}
+      />
+
+      {/* Cinematic Scroll Storytelling Overlays */}
+      <main className="relative z-10">
         
-        {/* 1. Hero Introduction */}
-        <HeroSection
-          onExplore={() => handleNavigate('problem')}
-          onWatchDemo={() => handleNavigate('simulation')}
+        {/* Section 01: Hero */}
+        <HeroOverlay onExplore={() => handleNavigate('problem')} />
+
+        {/* Section 02: The Problem */}
+        <ProblemOverlay />
+
+        {/* Section 03: Cyber Attacks */}
+        <AttacksOverlay
+          currentAttack={attackMode}
+          onSelectAttack={(attack) => {
+            setAttackMode(attack);
+            setIsHealed(false);
+          }}
         />
 
-        {/* 2. The Problem: Cyber Attacks & False Telemetry Chain */}
-        <ProblemSection />
-
-        {/* 3. PYPY Architecture: MONITOR -> DETECT -> VALIDATE -> DECIDE -> RECOVER */}
-        <ArchitectureSection />
-
-        {/* 4. Digital Twin: Full-width Interactive IEEE 39-Bus Topology */}
-        <DigitalTwinSection />
-
-        {/* 5. Cyber Attack Simulation Sandbox: FDIA, Breaker, Load */}
-        <AttackSimulationSection />
-
-        {/* 6. AI Detection: LSTM, GNN, PINN, ST-GNN & 98.7% Confidence */}
-        <AiDetectionSection />
-
-        {/* 7. Decision & Self-Healing: Feedback Loop & RED -> AMBER -> BLUE -> GREEN */}
-        <DecisionSelfHealingSection />
-
-        {/* 8. Results: Large Animated Metrics & Chapter 4 Benchmarks */}
-        <ResultsSection />
-
-        {/* 9. Final Conclusion: Statement & Action Buttons */}
-        <FinalConclusionSection
-          onOpenKeynote={() => setIsKeynoteOpen(true)}
+        {/* Section 04: Digital Twin */}
+        <DigitalTwinOverlay
+          selectedBus={selectedBus}
+          onSelectBus={(bus) => setSelectedBus(bus)}
         />
+
+        {/* Section 05: AI Defence */}
+        <AiDefenceOverlay
+          selectedAiModel={selectedAiModel}
+          onSelectAiModel={(model) => setSelectedAiModel(model)}
+        />
+
+        {/* Section 06 & 07: Self-Healing & Closed-Loop */}
+        <SelfHealingOverlay
+          isHealed={isHealed}
+          onTriggerHeal={() => {
+            setIsHealed(true);
+            setAttackMode('none');
+          }}
+          onReset={() => {
+            setIsHealed(false);
+            setAttackMode('none');
+          }}
+        />
+
+        {/* Section 08: Results & Validation */}
+        <ResultsOverlay />
+
+        {/* Section 09 & 10: Final Statement & Live Dashboard Link */}
+        <FinalOverlay />
 
       </main>
-
-      {/* Presentation Viva Slide Deck Modal */}
-      {isKeynoteOpen && (
-        <AppleKeynoteModal onClose={() => setIsKeynoteOpen(false)} />
-      )}
 
     </div>
   );
