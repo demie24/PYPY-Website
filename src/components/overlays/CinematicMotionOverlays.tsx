@@ -608,7 +608,7 @@ export const CinematicMotionOverlays: React.FC<CinematicMotionOverlaysProps> = (
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <span className="block text-xs font-mono text-slate-500 mt-2.5">
-                Cloudflare Quick Tunnel: score-civilization-gnome-association.trycloudflare.com
+                Cloudflare Quick Tunnel: development-obtained-segment-last.trycloudflare.com
               </span>
             </div>
           </div>
