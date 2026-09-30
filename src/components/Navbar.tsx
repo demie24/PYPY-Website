@@ -124,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               rel="noopener noreferrer"
               className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all border border-[#d6eaeb] bg-white text-[#17324d] hover:bg-[#f1f8fa]"
             >
-              <span>Port 3001</span>
+              <span>OPEN DASHBOARD</span>
               <ExternalLink className="w-3.5 h-3.5 text-[#16858a]" />
             </a>
 

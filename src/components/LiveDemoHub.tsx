@@ -42,7 +42,7 @@ export const LiveDemoHub: React.FC = () => {
                 <span className="px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-brand-indigo text-white shadow-sm">
                   Disyorkan untuk Viva
                 </span>
-                <span className="text-xs font-mono text-brand-cyan font-bold">Port 3001</span>
+                <span className="text-xs font-mono text-brand-cyan font-bold">Cloudflare Live</span>
               </div>
 
               <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
@@ -60,7 +60,7 @@ export const LiveDemoHub: React.FC = () => {
               className="py-3.5 px-6 rounded-2xl text-sm font-bold flex items-center justify-center gap-3 transition-all duration-200 bg-gradient-to-r from-brand-indigo to-brand-purple hover:opacity-95 text-white shadow-md hover:scale-[1.02] active:scale-95"
             >
               <Play className="w-4 h-4 text-amber-300 fill-amber-300" />
-              <span>Buka Exhibition Mode (#/exhibition)</span>
+              <span>Buka Live Exhibition Mode</span>
               <ExternalLink className="w-4 h-4 ml-1 opacity-80" />
             </a>
           </div>
@@ -90,7 +90,7 @@ export const LiveDemoHub: React.FC = () => {
               className="py-3.5 px-6 rounded-2xl text-sm font-bold flex items-center justify-center gap-3 transition-all duration-200 bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-700 shadow-md hover:scale-[1.02] active:scale-95"
             >
               <Radio className="w-4 h-4 text-emerald-400" />
-              <span>Buka Control Center (localhost:3001)</span>
+              <span>Buka Live Control Center</span>
               <ExternalLink className="w-4 h-4 ml-1 opacity-80" />
             </a>
           </div>

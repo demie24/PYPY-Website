@@ -149,7 +149,7 @@ export const DashboardView: React.FC = () => {
             rel="noopener noreferrer"
             className="ml-2 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-slate-900 text-white hover:bg-slate-800"
           >
-            <span>Live Container (3001)</span>
+            <span>OPEN LIVE DASHBOARD</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>

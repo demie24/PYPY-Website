@@ -599,7 +599,7 @@ export const VIVA_SLIDES = [
       "Senario 1: Suntikan FDIA pada Bus 5 → Pengesanan kritikal, penurunan TRUST score, penolakan tindakan merbahaya.",
       "Senario 2: Manipulasi Pemutus Litar L_line_0 → Pengesanan kehilangan talian, konsensus pemulihan PPO/DQN, sandbox pass, dan pengesahan pemulihan automatik 'GRID SECURED'."
     ],
-    vivaSpeakerNotes: "Sekiranya panel penilai ingin menyaksikan demonstrasi langsung, sistem sedia dibuka pada pelayan tempatan port 3001.",
+    vivaSpeakerNotes: "Sekiranya panel penilai ingin menyaksikan demonstrasi langsung, sistem sedia dibuka secara langsung melalui pautan Cloudflare Tunnel.",
     highlightStat: { label: "Status Stack", value: "19/19 Sihat", color: "text-[#10b981]" }
   },
   {

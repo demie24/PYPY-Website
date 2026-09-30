@@ -114,7 +114,7 @@ export const AppleNavbar: React.FC<AppleNavbarProps> = ({
               rel="noopener noreferrer"
               className="apple-button-secondary text-xs !py-2 !px-3.5 hidden sm:inline-flex"
             >
-              <span>Port 3001</span>
+              <span>OPEN DASHBOARD</span>
               <ExternalLink className="w-3 h-3 text-[#86868b]" />
             </a>
 
