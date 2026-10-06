@@ -45,7 +45,7 @@ export const PROJECT_INFO_V2 = {
   faculty: "Fakulti Teknologi Kejuruteraan Elektrik & Elektronik (FTKE)",
   author: "demie24",
   academicYear: "2026",
-  liveDashboardUrl: "https://event-affordable-thanks-top.trycloudflare.com",
+  liveDashboardUrl: "https://pearl-shake-calm-initiatives.trycloudflare.com",
 };
 
 // Precise 3D spatial mapping of IEEE 39-Bus New England System
